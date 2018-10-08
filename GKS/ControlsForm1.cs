@@ -154,7 +154,7 @@ namespace GKS
                     break;
                 case 2:
                     formState = 3;
-                    cf3 = new ControlsForm3(mainPanel, outputGroupsList);
+                    cf3 = new ControlsForm3(mainPanel);
                     cf3.ClearAndStart(cf2.ChangeState(), mainArray);
                     cf2 = null;
                     State3();
@@ -243,6 +243,7 @@ namespace GKS
         private void State3()
         {
             groupName.Text = "";
+            outputGroupsList.Text = "";
         }
 
         private void State2()

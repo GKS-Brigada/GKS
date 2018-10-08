@@ -67,20 +67,26 @@ namespace GKS
                 }
             }
 
-            for (int i = 0; i < distinctGroups.Length; i++)
+            for (int i = 0; i < group.Length; i++)
             {
-                for (int j = 0; j < distinctGroups[i].Length; j++)
+                for (int j = 0; j < group[i].Length; j++)
                 {
-                    for (int k = 0; k < distinctGroups[i].Length; k++)
+                    for (int k = 0; k < mainArray[group[i][j] - 1].Length; k++)
                     {
-                        if (j != 0 && distinctGroups[i][j - 1] == distinctGroups[i][k])
+                        if (k != mainArray[group[i][j] - 1].Length - 1)
                         {
-                            relationMatrix[i][distinctGroups[i][j]][distinctGroups[i][k]] = 1;
+                            if (relationMatrix[i][mainArray[group[i][j] - 1][k]][mainArray[group[i][j] - 1][k + 1]] == 1)
+                                relationMatrix[i][mainArray[group[i][j] - 1][k]][mainArray[group[i][j] - 1][k + 1]] = 2;
+                            else if(relationMatrix[i][mainArray[group[i][j] - 1][k]][mainArray[group[i][j] - 1][k + 1]] != 2)
+                                relationMatrix[i][mainArray[group[i][j] - 1][k]][mainArray[group[i][j] - 1][k + 1]] = -1;
                         }
-                        else if (j != distinctGroups[i].Length - 1 && distinctGroups[i][j + 1] == distinctGroups[i][k])
+                        if (k != 0)
                         {
-                            relationMatrix[i][distinctGroups[i][j]][distinctGroups[i][k]] = -1;
-                        }
+                            if (relationMatrix[i][mainArray[group[i][j] - 1][k]][mainArray[group[i][j] - 1][k - 1]] == -1)
+                                relationMatrix[i][mainArray[group[i][j] - 1][k]][mainArray[group[i][j] - 1][k - 1]] = 2;
+                            else if(relationMatrix[i][mainArray[group[i][j] - 1][k]][mainArray[group[i][j] - 1][k - 1]] != 2)
+                                relationMatrix[i][mainArray[group[i][j] - 1][k]][mainArray[group[i][j] - 1][k - 1]] = 1;
+                        } 
                     }
                 }
             }

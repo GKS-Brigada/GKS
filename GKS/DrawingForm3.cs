@@ -12,6 +12,7 @@ namespace GKS
     {
         private Dictionary<string, Dictionary<string, int>>[] relationMatrix;
         private string[][] distinctGroups;
+        private int groupNumber = 0;
 
         public void StartDraw(Panel panel, Dictionary<string, Dictionary<string, int>>[] relationMatrix, string[][] distinctGroups)
         {
@@ -24,6 +25,12 @@ namespace GKS
         public void ChangeFormState(Panel panel)
         {
             panel.Paint -= PanelPaint;
+        }
+
+        public void ChangeGroup(int groupNumber, Panel panel)
+        {
+            this.groupNumber = groupNumber - 1;
+            panel.Invalidate();
         }
 
         private void PanelPaint(object sender, PaintEventArgs e)
@@ -49,28 +56,28 @@ namespace GKS
             Pen deepAquaPen = new Pen(deepAqua);
             deepAquaPen.Width = 5;
 
-            int cubeWidth = panel.Width / 2 / (relationMatrix[0].Count + 1);
-            int cubeHeight = (panel.Height - panel.Height / 10) / (relationMatrix[0].Count + 1);
+            int cubeWidth = panel.Width / 2 / (relationMatrix[groupNumber].Count + 1);
+            int cubeHeight = (panel.Height - panel.Height / 10) / (relationMatrix[groupNumber].Count + 1);
 
-            for (int i = 1; i <= relationMatrix[0].Count; i++)
+            for (int i = 1; i <= relationMatrix[groupNumber].Count; i++)
             {
                 graphicsDraw.DrawLine(deepAquaPen, panel.Width / 4 + cubeWidth * i, panelHeight / 10, panel.Width / 4 + cubeWidth * i, panelHeight);
             }
-            for (int j = 1; j <= relationMatrix[0].Count; j++)
+            for (int j = 1; j <= relationMatrix[groupNumber].Count; j++)
             {
                 graphicsDraw.DrawLine(deepAquaPen, panel.Width / 4, panelHeight / 10 + cubeHeight * j, 3 * panel.Width / 4, panelHeight / 10 + cubeHeight * j);
             }
 
             Font numbers = new Font("Times New Roman", 200 / relationMatrix[0].Count);
-            for (int i = 1; i <= distinctGroups[0].Length; i++)
-                graphicsDraw.DrawString(distinctGroups[0][i - 1], numbers, deepAqua, panel.Width / 4, panel.Height / 10 + i * cubeHeight);
-            for (int j = 1; j <= distinctGroups[0].Length; j++)
-                graphicsDraw.DrawString(distinctGroups[0][j - 1], numbers, deepAqua, panel.Width / 4 + j * cubeWidth, panel.Height / 10);
-            for (int i = 0; i < distinctGroups[0].Length; i++)
+            for (int i = 1; i <= distinctGroups[groupNumber].Length; i++)
+                graphicsDraw.DrawString(distinctGroups[groupNumber][i - 1], numbers, deepAqua, panel.Width / 4, panel.Height / 10 + i * cubeHeight);
+            for (int j = 1; j <= distinctGroups[groupNumber].Length; j++)
+                graphicsDraw.DrawString(distinctGroups[groupNumber][j - 1], numbers, deepAqua, panel.Width / 4 + j * cubeWidth, panel.Height / 10);
+            for (int i = 0; i < distinctGroups[groupNumber].Length; i++)
             {
-                for (int j = 0; j < distinctGroups[0].Length; j++)
+                for (int j = 0; j < distinctGroups[groupNumber].Length; j++)
                 {
-                    graphicsDraw.DrawString(relationMatrix[0][distinctGroups[0][i]][distinctGroups[0][j]].ToString(), numbers, deepAqua, panel.Width / 4 + (j + 1) * cubeWidth, panel.Height / 10 + (i + 1) * cubeHeight);
+                    graphicsDraw.DrawString(relationMatrix[groupNumber][distinctGroups[groupNumber][i]][distinctGroups[groupNumber][j]].ToString(), numbers, deepAqua, panel.Width / 4 + (j + 1) * cubeWidth, panel.Height / 10 + (i + 1) * cubeHeight);
                 }
             }
 
