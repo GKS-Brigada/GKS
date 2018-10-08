@@ -39,16 +39,6 @@ namespace GKS
             {
                 for (int j = 1; j <= mainArray.Length; j++)
                 {
-                    foreach (int[] gr in group)
-                    {
-                        foreach (int g in gr)
-                            System.Diagnostics.Debug.Write(g + " ");
-
-                        System.Diagnostics.Debug.WriteLine(" ");
-                    }
-
-                    System.Diagnostics.Debug.WriteLine("--------------------");
-
                     if (!group[i].Contains(j) && !groupsCheck[j])
                     {
                         bool checkAll = true;

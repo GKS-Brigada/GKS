@@ -49,12 +49,14 @@ namespace GKS
             }
         }
 
-        public void ChangeState()
+        public int[][] ChangeState()
         {
             df2.ChangeFormState(mainPanel);
             mainPanel = null;
             newGroupList = null;
             df2 = null;
+
+            return newGroups;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace GKS
         private Panel mainPanel;
         private DrawingForm1 df1;
         private ControlsForm2 cf2;
+        private ControlsForm3 cf3;
         private int itemsCount = 0;
         private int[][] outputMatrix;
         private int[][] outputGroups;
@@ -152,11 +153,19 @@ namespace GKS
                     cf2.ClearAndStart(outputGroups, mainArray);
                     break;
                 case 2:
-                    formState = 1;
-                    cf2.ChangeState();
+                    formState = 3;
+                    cf3 = new ControlsForm3(mainPanel, outputGroupsList);
+                    cf3.ClearAndStart(cf2.ChangeState(), mainArray);
                     cf2 = null;
+                    State3();
+                    break;
+                case 3:
+                    formState = 1;
+                    cf3.ChangeState();
+                    cf3 = null;
                     State1();
                     break;
+
             }
         }
 
@@ -229,6 +238,11 @@ namespace GKS
                  outputGroupsList.Text += "}\r\n";
             }
 
+        }
+
+        private void State3()
+        {
+            groupName.Text = "";
         }
 
         private void State2()
